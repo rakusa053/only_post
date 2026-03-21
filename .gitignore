@@ -1,0 +1,4 @@
+.DS_Store
+.gemini/
+*.zip
+node_modules/
