@@ -21,11 +21,12 @@ chrome.storage.local.get(['stock', 'lastDate'], (result) => {
 });
 
 function checkPage() {
-  // まだプロフィールURLが分からない場合は、画面内から探す
-  if (!myProfileUrl) {
-    const linkObj = document.querySelector('a[data-testid="AppTabBar_Profile_Link"]');
-    if (linkObj) {
-      myProfileUrl = linkObj.getAttribute("href").toLowerCase();
+  // 常に画面内のプロフィールリンクを確認し、最新のアカウントURLに更新する（複数アカウント切替対応）
+  const linkObj = document.querySelector('a[data-testid="AppTabBar_Profile_Link"]');
+  if (linkObj) {
+    const currentUrl = linkObj.getAttribute("href").toLowerCase();
+    if (myProfileUrl !== currentUrl) {
+      myProfileUrl = currentUrl;
       localStorage.setItem("myProfileUrl", myProfileUrl);
     }
   }
